@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hore! - Temukan Minatmu dan Terhubung dengan Teman Baru</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Custom styles */
+    :root {
+      --primary-color: #8b5cf6;
+      --primary-dark: #7c3aed;
+      --primary-light: #a78bfa;
+      --blue-color: #3b82f6;
+      --blue-dark: #2563eb;
+    }
+
+    .bg-gradient-hero {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #9333ea 100%);
+    }
+
+    .user-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      border: 2px solid #ede9fe;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .user-avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .content-card {
+      background-color: #f9fafb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .content-card:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border-color: #e5e7eb;
+      transform: scale(1.02);
+    }
+
+    .category-pill {
+      border-radius: 9999px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .category-pill.active {
+      background-color: white;
+      color: black;
+    }
+
+    .category-pill.inactive {
+      color: white;
+    }
+
+    .category-pill.inactive:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .app-button {
+      transition: transform 0.2s;
+    }
+
+    .app-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+
+    /* Animation for background */
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .animated-bg {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #9333ea 100%);
+      background-size: 200% 200%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <h1 class="text-2xl font-bold" style="color: var(--primary-color);">Hore!</h1>
+        <div class="relative hidden sm:block">
+          <input
+            type="text"
+            placeholder="Cari..."
+            class="pl-8 pr-4 py-1 rounded-full border border-gray-300 text-sm w-40"
+          />
+          <i class="fas fa-search absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"></i>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2 sm:gap-4">
+        <div class="desktop-nav flex items-center gap-4">
+          <a href="#" class="flex items-center gap-1 text-xs">
+            <i class="fas fa-home h-4 w-4"></i>
+            <span>Beranda</span>
+          </a>
+          <a href="#" class="flex items-center gap-1 text-xs">
+            <i class="fas fa-clock h-4 w-4"></i>
+            <span>Linimasa</span>
+          </a>
+          <a href="#" class="flex items-center gap-1 text-xs">
+            <i class="fas fa-users h-4 w-4"></i>
+            <span>Komunitas</span>
+          </a>
+          <a href="#" class="flex items-center gap-1 text-xs">
+            <i class="fas fa-party-horn h-4 w-4"></i>
+            <span>Acara</span>
+          </a>
+        </div>
+        
+        <div class="flex items-center gap-1 text-xs border rounded-full px-2 py-1">
+          <span>🌐</span>
+          <span>Indonesia (ID)</span>
+        </div>
+        
+        <button class="text-xs rounded-full px-4 py-1 border" style="border-color: var(--primary-light); color: var(--primary-color);">Masuk</button>
+        <button class="text-xs rounded-full px-4 py-1 text-white" style="background-color: var(--primary-color);">Daftar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="py-12 relative overflow-hidden text-white animated-bg">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center"></div>
+      </div>
+      
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="flex justify-center gap-2 mb-6 flex-wrap">
+          <button class="category-pill active">Semua</button>
+          <button class="category-pill inactive">Kuliner</button>
+          <button class="category-pill inactive">Musik</button>
+          <button class="category-pill inactive">Kampus</button>
+          <button class="category-pill inactive">Traveling</button>
+        </div>
+        
+        <h2 class="text-2xl md:text-4xl font-bold mb-8 max-w-2xl mx-auto leading-tight">
+          Temukan Minatmu dan Terhubung dengan Teman Baru di Dunia Virtual Kita
+        </h2>
+        
+        <p class="mb-4">Buat akun gratis melalui aplikasi</p>
+        
+        <div class="flex justify-center gap-4">
+          <a href="#" class="app-button">
+            <img src="https://placehold.co/135x40/333/white?text=App+Store" alt="App Store" class="h-10 rounded-lg shadow-md">
+          </a>
+          <a href="#" class="app-button">
+            <img src="https://placehold.co/135x40/333/white?text=Google+Play" alt="Google Play" class="h-10 rounded-lg shadow-md">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Find Friends Section -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-center mb-2">Temukan Teman</h2>
+        <p class="text-center text-gray-600 mb-8">Temukan teman di Hore! yang suka membahas hal yang sama denganmu!</p>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+          <!-- First row with actual avatars -->
+          <div class="text-center">
+            <div class="user-avatar">
+              <img src="https://placehold.co/80x80/9333ea/white?text=B" alt="Budi" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-medium text-sm">Budi</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka nonton anime dan main game
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="user-avatar">
+              <img src="https://placehold.co/80x80/3b82f6/white?text=D" alt="Dewi" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-medium text-sm">Dewi</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Pecinta fotografi dan traveling
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="user-avatar">
+              <img src="https://placehold.co/80x80/ec4899/white?text=A" alt="Anita" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-medium text-sm">Anita</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Hobi masak dan jalan-jalan ke cafe
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="user-avatar">
+              <img src="https://placehold.co/80x80/f59e0b/white?text=R" alt="Rudi" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-medium text-sm">Rudi</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Penggemar musik dan film Indonesia
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="user-avatar">
+              <img src="https://placehold.co/80x80/10b981/white?text=S" alt="Siti" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-medium text-sm">Siti</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka membaca novel dan menulis puisi
+            </p>
+          </div>
+          
+          <!-- Second row with gray avatars -->
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Agus</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Pecinta kopi dan kuliner nusantara
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Rina</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka nonton drakor dan bikin konten
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Bambang</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Hobi main game dan nonton bola
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Dian</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka jalan-jalan dan fotografi
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Joko</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Penggemar musik dangdut dan karaoke
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Wati</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka masak dan berbagi resep
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Hadi</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Hobi main gitar dan nyanyi
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Sari</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka nonton film horor Indonesia
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Tono</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Penggemar sepak bola dan futsal
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="rounded-full bg-gray-200 w-20 h-20 mb-2 mx-auto"></div>
+            <h3 class="font-medium text-sm">Maya</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">
+              Suka traveling dan kuliner lokal
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Circles Section -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-center mb-2">Gabung dengan Komunitas</h2>
+        <p class="text-center text-gray-600 mb-8">Temukan komunitas baru yang ingin kamu ikuti</p>
+        
+        <div class="mb-8">
+          <h3 class="text-lg font-bold border-l-4 pl-2 mb-4" style="border-color: var(--primary-color);">Komunitas Terbaru</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-100 rounded-lg p-4">
+              <h4 class="font-bold mb-2">Pecinta Kuliner Nusantara</h4>
+              <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+                Berbagi info tentang makanan khas daerah dan resep masakan Indonesia.
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>👁️ 120</span>
+                  <span>💬 45</span>
+                </div>
+                <button class="text-xs px-3 py-1 rounded text-white" style="background-color: var(--blue-color);">Gabung</button>
+              </div>
+            </div>
+            
+            <div class="bg-gray-100 rounded-lg p-4">
+              <h4 class="font-bold mb-2">Komunitas Film Indonesia</h4>
+              <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+                Diskusi tentang film-film Indonesia terbaru dan klasik.
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>👁️ 85</span>
+                  <span>💬 32</span>
+                </div>
+                <button class="text-xs px-3 py-1 rounded text-white" style="background-color: var(--blue-color);">Gabung</button>
+              </div>
+            </div>
+            
+            <div class="bg-gray-100 rounded-lg p-4">
+              <h4 class="font-bold mb-2">Wisata Alam Indonesia</h4>
+              <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+                Berbagi pengalaman traveling ke tempat-tempat indah di Indonesia.
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>👁️ 95</span>
+                  <span>💬 28</span>
+                </div>
+                <button class="text-xs px-3 py-1 rounded text-white" style="background-color: var(--blue-color);">Gabung</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <button class="rounded-full px-8 py-2 text-white" style="background-color: var(--primary-color);">Lihat Lainnya</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pickup Category Section -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <h3 class="text-lg font-bold border-l-4 pl-2 mb-4" style="border-color: var(--primary-color);">Kategori Pilihan</h3>
+        
+        <div class="mb-4 flex gap-2 flex-wrap">
+          <button class="text-xs px-3 py-1 rounded-full text-white" style="background-color: var(--blue-color);">Semua</button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-4 flex gap-2">
+          <button class="text-xs px-3 py-1 rounded-full text-white" style="background-color: var(--blue-color);">Kuliner</button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+          
+          <div class="content-card">
+            <div class="h-32 bg-gray-200 rounded-lg mb-3"></div>
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <div class="h-4 w-4 bg-gray-200 rounded-full"></div>
+                <div class="h-3 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="h-64 bg-gray-100 rounded-lg w-full flex items-center justify-center">
+          <div class="text-center">
+            <h3 class="text-xl font-bold text-gray-400 mb-2">Ruang Iklan</h3>
+            <p class="text-sm text-gray-400">Promosikan bisnis Anda di sini</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending Topics Section - Added Improvisation -->
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-center mb-8">Topik Trending</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-violet-100 text-violet-800 text-xs px-2 py-1 rounded-full">#1</span>
+              <h4 class="font-bold">#KulinerNusantara</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">
+              Berbagi resep dan pengalaman mencicipi makanan khas daerah di Indonesia!
+            </p>
+            <div class="text-xs text-gray-500">1.2K postingan hari ini</div>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-violet-100 text-violet-800 text-xs px-2 py-1 rounded-full">#2</span>
+              <h4 class="font-bold">#FilmIndonesia</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">
+              Diskusi tentang film-film Indonesia terbaru yang wajib ditonton!
+            </p>
+            <div class="text-xs text-gray-500">856 postingan hari ini</div>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-violet-100 text-violet-800 text-xs px-2 py-1 rounded-full">#3</span>
+              <h4 class="font-bold">#KopdarHore</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">
+              Gabung dalam pertemuan mingguan komunitas Hore! di kota-kota besar!
+            </p>
+            <div class="text-xs text-gray-500">723 postingan hari ini</div>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-violet-100 text-violet-800 text-xs px-2 py-1 rounded-full">#4</span>
+              <h4 class="font-bold">#WisataLokal</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">
+              Temukan destinasi wisata tersembunyi di Indonesia yang wajib dikunjungi!
+            </p>
+            <div class="text-xs text-gray-500">645 postingan hari ini</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- App Download Section -->
+    <section class="py-12 text-white animated-bg">
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <h2 class="text-2xl font-bold mb-6">Buat akun gratis melalui aplikasi</h2>
+        
+        <div class="flex justify-center gap-4 mb-4">
+          <a href="#" class="app-button">
+            <img src="https://placehold.co/135x40/333/white?text=App+Store" alt="App Store" class="h-10 rounded-lg shadow-md">
+          </a>
+          <a href="#" class="app-button">
+            <img src="https://placehold.co/135x40/333/white?text=Google+Play" alt="Google Play" class="h-10 rounded-lg shadow-md">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white py-8 border-t">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <div class="flex items-center gap-4 mb-4 md:mb-0">
+          <div class="p-2 rounded-lg text-white" style="background-color: var(--primary-color);">
+            <h2 class="text-lg font-bold">Hore!</h2>
+          </div>
+          <div class="text-sm">
+            <p class="font-bold">Terhubung Melalui Minat</p>
+            <p class="text-gray-600">di Dunia Virtual Kita</p>
+          </div>
+        </div>
+        
+        <div class="flex gap-4">
+          <a href="#" class="app-button">
+            <img src="https://placehold.co/135x40/333/white?text=App+Store" alt="App Store" class="h-10">
+          </a>
+          <a href="#" class="app-button">
+            <img src="https://placehold.co/135x40/333/white?text=Google+Play" alt="Google Play" class="h-10">
+          </a>
+        </div>
+      </div>
+      
+      <div class="flex flex-col md:flex-row justify-between text-sm text-gray-600">
+        <div class="mb-4 md:mb-0">
+          <p>Perusahaan:</p>
+          <p>PT Hore Indonesia, Tbk.</p>
+        </div>
+        
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-violet-600 transition-colors">Ketentuan</a>
+          <a href="#" class="hover:text-violet-600 transition-colors">Kebijakan Privasi</a>
+          <a href="#" class="hover:text-violet-600 transition-colors">Syarat Penggunaan</a>
+        </div>
+      </div>
+      
+      <div class="text-center text-xs text-gray-500 mt-8">
+        © 2023 PT Hore Indonesia, Tbk.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple animation for background elements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add hover effects for content cards
+      const cards = document.querySelectorAll('.content-card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.02)';
+          this.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+          this.style.backgroundColor = 'white';
+          this.style.borderColor = '#e5e7eb';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1)';
+          this.style.boxShadow = 'none';
+          this.style.backgroundColor = '#f9fafb';
+          this.style.borderColor = 'transparent';
+        });
+      });
+      
+      // Add hover effects for category pills
+      const pills = document.querySelectorAll('.category-pill.inactive');
+      pills.forEach(pill => {
+        pill.addEventListener('mouseenter', function() {
+          this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        });
+        
+        pill.addEventListener('mouseleave', function() {
+          this.style.backgroundColor = 'transparent';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
